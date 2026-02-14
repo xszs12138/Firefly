@@ -55,6 +55,26 @@ steps:
       - pnpm config set store-dir /pnpm/store
       - pnpm build
 
+  - name: deploy
+    image: drillster/drone-rsync
+    settings:
+      user:
+        from_secret: deploy_user
+      key:
+        from_secret: deploy_ssh_key
+      hosts:
+        - blog.tjausbj.com.cn
+      source: dist/
+      target: /var/www/blog-website
+      recursive: true
+      delete: true
+    when:
+      event:
+        - push
+      branch:
+        - master
+        - main
+
 trigger:
   event:
     - push
