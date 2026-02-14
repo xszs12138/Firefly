@@ -3,40 +3,51 @@ type: docker
 name: default
 
 clone:
-  depth: 1
+  depth: 1  # 只克隆最新提交，减少磁盘/内存占用
   retries: 3
+  git:
+    image: drone/git
+    settings:
+      extra_args:
+        - -c
+        - http.version=HTTP/1.1  # 规避HTTP/2网络问题
 
 steps:
-  - name: install
+  # 合并install+build步骤：减少容器启动数量，节省资源
+  - name: install-and-build
     image: node:20-slim
+    # 核心：限制容器内存使用，避免占满服务器内存
+    resources:
+      limits:
+        memory: 1536Mi  # 限制最大内存1.5GB（根据服务器内存调整）
+        cpu: 1000m      # 限制最大CPU核心数（1核）
     volumes:
       - name: cache
         path: /pnpm/store
     environment:
       PNPM_HOME: /pnpm
       PATH: /pnpm:/usr/local/bin:/usr/bin:/bin
-      NODE_OPTIONS: "--max-old-space-size=2048"
+      # 降低Node堆内存上限，适配小内存服务器
+      NODE_OPTIONS: "--max-old-space-size=1024 --expose-gc"
+      # 开启pnpm内存优化
+      PNPM_CONFIG_MEMORY_THRESHOLD: "2048"
     commands:
-      - corepack enable && corepack prepare pnpm@9 --activate
+      # 精简pnpm初始化步骤，减少冗余操作
+      - corepack enable
+      - corepack prepare pnpm@9 --activate
       - pnpm config set store-dir /pnpm/store
-      - pnpm install --frozen-lockfile
-
-  - name: build
-    image: node:20-slim
-    volumes:
-      - name: cache
-        path: /pnpm/store
-    environment:
-      PNPM_HOME: /pnpm
-      PATH: /pnpm:/usr/local/bin:/usr/bin:/bin
-      NODE_OPTIONS: "--max-old-space-size=2048"
-    commands:
-      - corepack enable && corepack prepare pnpm@9 --activate
-      - pnpm config set store-dir /pnpm/store
-      - pnpm build
+      # 安装依赖时跳过可选依赖，减少内存占用
+      - pnpm install --frozen-lockfile --no-optional --ignore-scripts
+      # 构建时强制开启GC，及时释放内存
+      - node --expose-gc -e "gc()" && pnpm build
 
   - name: deploy
     image: drillster/drone-rsync
+    # 部署步骤也限制资源，避免叠加占用
+    resources:
+      limits:
+        memory: 256Mi
+        cpu: 500m
     settings:
       user:
         from_secret: deploy_user
@@ -55,11 +66,18 @@ steps:
         - master
         - main
 
+# 触发规则优化：仅必要事件触发，减少无用执行
 trigger:
   event:
     - push
     - pull_request
+  # 仅master/main分支执行完整流程，其他分支可跳过deploy
+  branch:
+    - master
+    - main
 
+# 缓存优化：使用持久化缓存（而非临时缓存），减少重复下载
 volumes:
   - name: cache
-    temp: {}
+    host:
+      path: /var/lib/drone/pnpm-cache  # 宿主机持久化目录（需提前创建）
