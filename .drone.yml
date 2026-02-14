@@ -1,3 +1,4 @@
+# 针对 2核2G 小内存服务器优化
 kind: pipeline
 type: docker
 name: default
@@ -5,41 +6,42 @@ name: default
 clone:
   depth: 1
   retries: 3
-  git:
-    image: drone/git
-    settings:
-      extra_args:
-        - -c
-        - http.version=HTTP/1.1
 
 steps:
-  - name: install-and-build
+  - name: install
     image: node:20-slim
-    resources:
-      limits:
-        memory: 1536M      # 修正：Mi → M（大写）
-        cpu: 1500m         # CPU单位m是小写，无需改
     volumes:
       - name: cache
         path: /pnpm/store
     environment:
       PNPM_HOME: /pnpm
       PATH: /pnpm:/usr/local/bin:/usr/bin:/bin
-      NODE_OPTIONS: "--max-old-space-size=1024 --expose-gc"
-      PNPM_CONFIG_MEMORY_THRESHOLD: "2048"
+      NODE_OPTIONS: "--max-old-space-size=1024"
     commands:
-      - corepack enable
-      - corepack prepare pnpm@9 --activate
+      - corepack enable && corepack prepare pnpm@9 --activate
       - pnpm config set store-dir /pnpm/store
-      - pnpm install --frozen-lockfile --no-optional --ignore-scripts
-      - node --expose-gc -e "gc()" && pnpm build
+      - pnpm config set network-concurrency 2
+      - pnpm config set child-concurrency 2
+      - pnpm install --frozen-lockfile
+
+  - name: build
+    image: node:20-slim
+    volumes:
+      - name: cache
+        path: /pnpm/store
+    environment:
+      PNPM_HOME: /pnpm
+      PATH: /pnpm:/usr/local/bin:/usr/bin:/bin
+      NODE_OPTIONS: "--max-old-space-size=1024"
+      VITE_WORKERS: "2"
+      CI: "true"
+    commands:
+      - corepack enable && corepack prepare pnpm@9 --activate
+      - pnpm config set store-dir /pnpm/store
+      - pnpm build
 
   - name: deploy
     image: drillster/drone-rsync
-    resources:
-      limits:
-        memory: 256M       # 修正：Mi → M（大写）
-        cpu: 500m
     settings:
       user:
         from_secret: deploy_user
@@ -62,11 +64,7 @@ trigger:
   event:
     - push
     - pull_request
-  branch:
-    - master
-    - main
 
 volumes:
   - name: cache
-    host:
-      path: /var/lib/drone/pnpm-cache
+    temp: {}

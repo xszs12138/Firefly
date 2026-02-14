@@ -219,9 +219,11 @@ export default defineConfig({
 			},
 		},
 		build: {
-			// 启用资源压缩和优化
-			minify: "terser",
-			terserOptions: {
+			// CI 环境用 esbuild（省内存），本地用 terser（压缩率略好）
+			minify: process.env.CI ? "esbuild" : "terser",
+			terserOptions: process.env.CI
+				? undefined
+				: {
 				compress: {
 					drop_console: false, // 生产环境可改为true移除console
 					drop_debugger: true,
@@ -230,7 +232,7 @@ export default defineConfig({
 				format: {
 					comments: false,
 				},
-			},
+				},
 			rollupOptions: {
 				onwarn(warning, warn) {
 					// temporarily suppress this warning
@@ -250,8 +252,8 @@ export default defineConfig({
 			assetsInlineLimit: 4096,
 			// 减少源映射大小（可选，生产环境改为false）
 			sourcemap: false,
-			// 并行处理构建
-			workers: 4,
+			// 并行处理构建，CI 环境（2核）使用 2 workers
+			workers: parseInt(process.env.VITE_WORKERS || "4", 10),
 		},
 	},
 });
