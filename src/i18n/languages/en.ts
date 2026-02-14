@@ -209,6 +209,9 @@ export const en: Translation = {
 	[Key.bannerTitle]: "Banner Title",
 	[Key.wavesAnimation]: "Waves Animation",
 
+	[Key.effectSettings]: "Effect Settings",
+	[Key.effectSakuraShow]: "Effect Sakura Show",
+
 	// Post List Layout
 	[Key.postListLayout]: "Post List Layout",
 	[Key.postListLayoutList]: "List",
@@ -268,6 +271,14 @@ export const en: Translation = {
 	[Key.calendarOctober]: "Oct",
 	[Key.calendarNovember]: "Nov",
 	[Key.calendarDecember]: "Dec",
+
+	[Key.holidayNewYear]: "New Year",
+	[Key.holidaySpringFestival]: "Spring Festival",
+	[Key.holidayQingming]: "Qingming",
+	[Key.holidayLaborDay]: "Labor Day",
+	[Key.holidayDragonBoat]: "Dragon Boat",
+	[Key.holidayMidAutumn]: "Mid-Autumn",
+	[Key.holidayNationalDay]: "National Day",
 
 	[Key.shareArticle]: "Share",
 	[Key.generatingPoster]: "Generating Poster...",

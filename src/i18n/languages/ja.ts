@@ -208,6 +208,9 @@ export const ja: Translation = {
 	[Key.bannerTitle]: "バナータイトル",
 	[Key.wavesAnimation]: "波アニメーション",
 
+	[Key.effectSettings]: "エフェクト設定",
+	[Key.effectSakuraShow]: "サクラエフェクト表示",
+
 	// 投稿リストレイアウト
 	[Key.postListLayout]: "投稿リストレイアウト",
 	[Key.postListLayoutList]: "リスト",
@@ -267,6 +270,14 @@ export const ja: Translation = {
 	[Key.calendarOctober]: "10月",
 	[Key.calendarNovember]: "11月",
 	[Key.calendarDecember]: "12月",
+
+	[Key.holidayNewYear]: "元日",
+	[Key.holidaySpringFestival]: "春節",
+	[Key.holidayQingming]: "清明",
+	[Key.holidayLaborDay]: "メーデー",
+	[Key.holidayDragonBoat]: "端午",
+	[Key.holidayMidAutumn]: "中秋",
+	[Key.holidayNationalDay]: "国慶節",
 
 	[Key.shareArticle]: "共有",
 	[Key.generatingPoster]: "ポスター生成中...",

@@ -2,9 +2,37 @@
 import { Icon } from "astro-icon/components";
 import WidgetLayout from "@/components/common/WidgetLayout.astro";
 import { siteConfig } from "@/config/siteConfig";
+import { getHolidayKey } from "@/config/chineseHolidays";
 import I18nKey from "@/i18n/i18nKey";
 import { i18n } from "@/i18n/translation";
 import { url } from "@/utils/url-utils";
+
+// 节假日 key 到 i18n 的映射
+const holidayKeyToI18n: Record<string, I18nKey> = {
+	newYear: I18nKey.holidayNewYear,
+	springFestival: I18nKey.holidaySpringFestival,
+	qingming: I18nKey.holidayQingming,
+	laborDay: I18nKey.holidayLaborDay,
+	dragonBoat: I18nKey.holidayDragonBoat,
+	midAutumn: I18nKey.holidayMidAutumn,
+	nationalDay: I18nKey.holidayNationalDay,
+};
+
+// 预生成节假日日期 -> 翻译名称 映射（2020-2035）
+const holidayMap: Record<string, string> = {};
+for (let y = 2020; y <= 2035; y++) {
+	for (let m = 1; m <= 12; m++) {
+		const daysInMonth = new Date(y, m, 0).getDate();
+		for (let d = 1; d <= daysInMonth; d++) {
+			const dateKey = `${y}-${String(m).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
+			const key = getHolidayKey(dateKey);
+			if (key) {
+				const i18nKey = holidayKeyToI18n[key];
+				if (i18nKey) holidayMap[dateKey] = i18n(i18nKey);
+			}
+		}
+	}
+}
 
 interface Props {
 	class?: string;
@@ -85,12 +113,12 @@ const postUrlPrefix = url("/posts/");
     </div>
 
     <!-- 月份选择视图 -->
-    <div id="month-view-container" class="hidden grid grid-cols-3 gap-2">
+    <div id="month-view-container" class="grid grid-cols-3 gap-2">
       <!-- 将由 JavaScript 填充 -->
     </div>
 
     <!-- 年份选择视图 -->
-    <div id="year-view-container" class="hidden grid grid-cols-3 gap-2">
+    <div id="year-view-container" class="grid grid-cols-3 gap-2">
       <!-- 将由 JavaScript 填充 -->
     </div>
     
@@ -104,7 +132,7 @@ const postUrlPrefix = url("/posts/");
   </div>
 </WidgetLayout>
 
-<script is:inline define:vars={{ monthNames, weekDays, yearText, currentLang, calendarDataUrl, postUrlPrefix }}>
+<script is:inline define:vars={{ monthNames, weekDays, yearText, currentLang, calendarDataUrl, postUrlPrefix, holidayMap }}>
   // State variables
   let displayYear = new Date().getFullYear();
   let displayMonth = new Date().getMonth();
@@ -231,11 +259,12 @@ const postUrlPrefix = url("/posts/");
       });
     }
     
-    // 渲染日历格子
+    // 渲染日历格子（统一布局：日期固定顶部对齐，节假日区域固定高度，保证同行数字对齐）
     calendarGrid.innerHTML = calendarDays.map(({day, hasPost, count, dateKey}) => {
       const isToday = day === currentDate && isCurrentMonth;
+      const holidayName = dateKey && holidayMap ? holidayMap[dateKey] : null;
       const classes = [
-        "calendar-day aspect-square flex items-center justify-center rounded text-sm relative cursor-pointer"
+        "calendar-day aspect-square flex flex-col items-center justify-start rounded text-sm relative cursor-pointer pt-1"
       ];
       
       if (!day) {
@@ -247,7 +276,8 @@ const postUrlPrefix = url("/posts/");
       }
       
       if (isToday) {
-        classes.push("ring-2 ring-(--primary)");
+        // classes.push("ring-2 ring-(--primary)");
+        classes.push("!text-(--primary)");
       }
       
       return `
@@ -256,9 +286,10 @@ const postUrlPrefix = url("/posts/");
           data-date="${dateKey}"
           data-has-post="${hasPost}"
         >
-          ${day || ''}
-          ${hasPost ? '<span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-(--primary)"></span>' : ''}
-          ${hasPost && count > 1 ? `<span class="absolute top-0 right-0 text-[10px] text-(--primary) font-bold">${count}</span>` : ''}
+          <span class="calendar-day-num leading-none shrink-0">${day || ''}</span>
+          <span class="calendar-day-holiday min-h-[14px] text-[10px] leading-tight text-(--primary) mt-0.5 truncate max-w-full px-0.5 text-center flex items-center justify-center">${holidayName || ''}</span>
+          ${hasPost ? '<span class="absolute bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-(--primary)"></span>' : ''}
+          ${hasPost && count > 1 ? `<span class="absolute top-0 right-0.5 text-[10px] text-(--primary) font-bold">${count}</span>` : ''}
         </div>
       `;
     }).join('');
@@ -492,6 +523,18 @@ const postUrlPrefix = url("/posts/");
   
   .calendar-day[data-has-post="true"]:hover {
     transform: translateY(-2px);
+  }
+
+  /* 日期数字统一顶部对齐，节假日区域固定高度，保证同行对齐 */
+  .calendar-day-num {
+    flex-shrink: 0;
+  }
+  
+  .calendar-day-holiday {
+    min-height: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   /* 自定义选中日期样式，替代 bg-opacity-10 */

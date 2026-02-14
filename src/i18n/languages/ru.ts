@@ -210,6 +210,9 @@ export const ru: Translation = {
 	[Key.bannerTitle]: "Заголовок баннера",
 	[Key.wavesAnimation]: "Анимация волн",
 
+	[Key.effectSettings]: "Настройки эффектов",
+	[Key.effectSakuraShow]: "Эффект сакуры",
+
 	// Макет списка сообщений
 	[Key.postListLayout]: "Макет списка сообщений",
 	[Key.postListLayoutList]: "Список",
@@ -269,6 +272,14 @@ export const ru: Translation = {
 	[Key.calendarOctober]: "Окт",
 	[Key.calendarNovember]: "Ноя",
 	[Key.calendarDecember]: "Дек",
+
+	[Key.holidayNewYear]: "Новый год",
+	[Key.holidaySpringFestival]: "Праздник весны",
+	[Key.holidayQingming]: "Цинмин",
+	[Key.holidayLaborDay]: "День труда",
+	[Key.holidayDragonBoat]: "Праздник драконьих лодок",
+	[Key.holidayMidAutumn]: "Праздник середины осени",
+	[Key.holidayNationalDay]: "День образования КНР",
 
 	[Key.shareArticle]: "Поделиться",
 	[Key.generatingPoster]: "Создание постера...",

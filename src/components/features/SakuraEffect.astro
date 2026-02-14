@@ -319,6 +319,16 @@ const config = sakuraConfig;
 		// 创建全局樱花管理器实例
 		let globalSakuraManager = null;
 
+		// 应用用户偏好到配置（localStorage 优先于 config）
+		function applyUserSakuraPreference() {
+			try {
+				const stored = localStorage.getItem('sakuraShowEnabled');
+				if (stored !== null) {
+					sakuraConfig.enable = stored === 'true';
+				}
+			} catch (e) {}
+		}
+
 		// 初始化樱花特效
 		function initSakura(config) {
 			if (globalSakuraManager) {
@@ -340,6 +350,7 @@ const config = sakuraConfig;
 			
 			// 初始化樱花特效的函数
 			const setupSakura = () => {
+				applyUserSakuraPreference();
 				if (sakuraConfig.enable && !window.sakuraInitialized) {
 					initSakura(sakuraConfig);
 					window.sakuraInitialized = true;
@@ -352,6 +363,21 @@ const config = sakuraConfig;
 			} else {
 				setupSakura();
 			}
+
+			// 监听用户切换事件（来自 DisplaySettings）
+			window.addEventListener('sakuraToggle', (e) => {
+				const enabled = e.detail?.enabled ?? false;
+				sakuraConfig.enable = enabled;
+				if (enabled) {
+					if (!globalSakuraManager) {
+						globalSakuraManager = new SakuraManager(sakuraConfig);
+					}
+					globalSakuraManager.updateConfig(sakuraConfig);
+					globalSakuraManager.init();
+				} else if (globalSakuraManager) {
+					globalSakuraManager.stop();
+				}
+			});
 		})();
 	</script>
 )}

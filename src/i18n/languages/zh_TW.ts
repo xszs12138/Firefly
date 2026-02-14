@@ -203,6 +203,8 @@ export const zh_TW: Translation = {
 	[Key.bannerTitle]: "橫幅標題",
 	[Key.wavesAnimation]: "水波紋動畫",
 
+	[Key.effectSettings]: "特效設置",
+	[Key.effectSakuraShow]: "櫻花特效顯示",
 	// 文章佈局
 	[Key.postListLayout]: "文章佈局",
 	[Key.postListLayoutList]: "清單",
@@ -261,6 +263,14 @@ export const zh_TW: Translation = {
 	[Key.calendarOctober]: "10月",
 	[Key.calendarNovember]: "11月",
 	[Key.calendarDecember]: "12月",
+
+	[Key.holidayNewYear]: "元旦",
+	[Key.holidaySpringFestival]: "春節",
+	[Key.holidayQingming]: "清明",
+	[Key.holidayLaborDay]: "勞動節",
+	[Key.holidayDragonBoat]: "端午",
+	[Key.holidayMidAutumn]: "中秋",
+	[Key.holidayNationalDay]: "國慶",
 
 	[Key.shareArticle]: "分享",
 	[Key.generatingPoster]: "海報生成中...",

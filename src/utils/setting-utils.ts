@@ -12,9 +12,11 @@ import type { LIGHT_DARK_MODE, WALLPAPER_MODE } from "@/types/config";
 import {
 	backgroundWallpaper,
 	expressiveCodeConfig,
+	sakuraConfig,
 	siteConfig,
 } from "../config";
 import { isHomePage as checkIsHomePage } from "./layout-utils";
+import { canUseLocalStorage } from "./localStorage-check";
 
 // Declare global functions
 declare global {
@@ -707,6 +709,7 @@ export function applyWavesEnabledToDocument(enabled: boolean): void {
 	}
 }
 
+
 // Banner title functions
 export function getDefaultBannerTitleEnabled(): boolean {
 	return backgroundWallpaper.banner?.homeText?.enable ?? true;
@@ -735,6 +738,33 @@ export function setBannerTitleEnabled(enabled: boolean): void {
 	}
 	localStorage.setItem("bannerTitleEnabled", String(enabled));
 	applyBannerTitleEnabledToDocument(enabled);
+}
+
+const DEFAULT_SAKURA_SHOW = sakuraConfig.enable ?? true;
+
+export function getDefaultSakuraShow(): boolean {
+	return DEFAULT_SAKURA_SHOW;
+}
+
+export function getStoredSakuraShow(): boolean {
+	if (!canUseLocalStorage) {
+		return getDefaultSakuraShow();
+	}
+	const stored = localStorage.getItem("sakuraShowEnabled");
+	if (stored === null) {
+		return getDefaultSakuraShow();
+	}
+	return stored === "true";
+}
+
+export function setSakuraShow(enabled: boolean): void {
+	if (!canUseLocalStorage) return;
+	localStorage.setItem("sakuraShowEnabled", String(enabled));
+	sakuraConfig.enable = enabled;
+	// 派发自定义事件，通知 SakuraEffect 切换显示状态
+	if (typeof window !== "undefined") {
+		window.dispatchEvent(new CustomEvent("sakuraToggle", { detail: { enabled } }));
+	}
 }
 
 export function applyBannerTitleEnabledToDocument(enabled: boolean): void {

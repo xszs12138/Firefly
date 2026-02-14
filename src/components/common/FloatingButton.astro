@@ -32,18 +32,19 @@ const { id, icon, ariaLabel, onclick, class: className = "" } = Astro.props;
 
 <style lang="stylus">
 .floating-btn
+    margin-right: 1rem;
     color: var(--primary)
     font-size: 2.25rem
     font-weight: bold
-    width: 4rem
-    height: 4rem
+    width: 2.5rem
+    height: 2.5rem
     
     opacity: 1
     cursor: pointer
     pointer-events: auto
     /* 默认状态（显示）：各属性平滑过渡 */
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1)
-    border-radius: 1rem
+    border-radius: 1.25rem
     backdrop-filter: blur(12px)
     background-color: var(--card-bg)
     border: 1px solid rgba(0, 0, 0, 0.1)
@@ -117,6 +118,7 @@ const { id, icon, ariaLabel, onclick, class: className = "" } = Astro.props;
 
 @media (max-width: 360px)
     .floating-btn
+        margin-right: 0;
         width: 2rem
         height: 2rem
         font-size: 1rem
@@ -126,6 +128,7 @@ const { id, icon, ariaLabel, onclick, class: className = "" } = Astro.props;
 
 @media (max-width: 320px)
     .floating-btn
+        margin-right: 0;
         width: 1.75rem
         height: 1.75rem
         font-size: 0.875rem

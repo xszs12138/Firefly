@@ -199,6 +199,10 @@ enum I18nKey {
 	bannerTitle = "bannerTitle",
 	wavesAnimation = "wavesAnimation",
 
+	// 特效设置
+	effectSettings = "effectSettings",
+	effectSakuraShow = "effectSakuraShow",
+
 	// 文章布局
 	postListLayout = "postListLayout",
 	postListLayoutList = "postListLayoutList",
@@ -255,6 +259,15 @@ enum I18nKey {
 	calendarOctober = "calendarOctober",
 	calendarNovember = "calendarNovember",
 	calendarDecember = "calendarDecember",
+
+	// 中国节假日
+	holidayNewYear = "holidayNewYear",
+	holidaySpringFestival = "holidaySpringFestival",
+	holidayQingming = "holidayQingming",
+	holidayLaborDay = "holidayLaborDay",
+	holidayDragonBoat = "holidayDragonBoat",
+	holidayMidAutumn = "holidayMidAutumn",
+	holidayNationalDay = "holidayNationalDay",
 
 	shareArticle = "shareArticle",
 	generatingPoster = "generatingPoster",
