@@ -15,6 +15,7 @@ steps:
     environment:
       PNPM_HOME: /pnpm
       PATH: /pnpm:/usr/local/bin:/usr/bin:/bin
+      NODE_OPTIONS: "--max-old-space-size=2048"
     commands:
       - corepack enable && corepack prepare pnpm@9 --activate
       - pnpm config set store-dir /pnpm/store
@@ -28,6 +29,7 @@ steps:
     environment:
       PNPM_HOME: /pnpm
       PATH: /pnpm:/usr/local/bin:/usr/bin:/bin
+      NODE_OPTIONS: "--max-old-space-size=2048"
     commands:
       - corepack enable && corepack prepare pnpm@9 --activate
       - pnpm config set store-dir /pnpm/store
