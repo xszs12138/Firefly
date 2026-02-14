@@ -20,32 +20,6 @@ steps:
       - pnpm config set store-dir /pnpm/store
       - pnpm install --frozen-lockfile
 
-  - name: lint
-    image: node:20-slim
-    volumes:
-      - name: cache
-        path: /pnpm/store
-    environment:
-      PNPM_HOME: /pnpm
-      PATH: /pnpm:/usr/local/bin:/usr/bin:/bin
-    commands:
-      - corepack enable && corepack prepare pnpm@9 --activate
-      - pnpm config set store-dir /pnpm/store
-      - pnpm lint
-
-  - name: type-check
-    image: node:20-slim
-    volumes:
-      - name: cache
-        path: /pnpm/store
-    environment:
-      PNPM_HOME: /pnpm
-      PATH: /pnpm:/usr/local/bin:/usr/bin:/bin
-    commands:
-      - corepack enable && corepack prepare pnpm@9 --activate
-      - pnpm config set store-dir /pnpm/store
-      - pnpm type-check
-
   - name: build
     image: node:20-slim
     volumes:

@@ -4,12 +4,12 @@
  */
 
 export type HolidayKey =
-	| "newYear"       // 元旦
+	| "newYear" // 元旦
 	| "springFestival" // 春节
-	| "qingming"     // 清明节
-	| "laborDay"     // 劳动节
-	| "dragonBoat"   // 端午节
-	| "midAutumn"    // 中秋节
+	| "qingming" // 清明节
+	| "laborDay" // 劳动节
+	| "dragonBoat" // 端午节
+	| "midAutumn" // 中秋节
 	| "nationalDay"; // 国庆节
 
 type HolidayRange = [string, string, HolidayKey]; // [start YYYY-MM-DD, end YYYY-MM-DD, key]
@@ -181,7 +181,7 @@ let _holidayMapCache: Record<string, HolidayKey> | null = null;
 function buildHolidayMap(): Record<string, HolidayKey> {
 	if (_holidayMapCache) return _holidayMapCache;
 	const map: Record<string, HolidayKey> = {};
-	for (const [year, ranges] of Object.entries(HOLIDAY_RANGES)) {
+	for (const [_, ranges] of Object.entries(HOLIDAY_RANGES)) {
 		for (const [start, end, key] of ranges) {
 			for (const dateKey of expandRange(start, end)) {
 				const existing = map[dateKey];

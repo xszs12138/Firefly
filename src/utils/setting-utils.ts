@@ -709,7 +709,6 @@ export function applyWavesEnabledToDocument(enabled: boolean): void {
 	}
 }
 
-
 // Banner title functions
 export function getDefaultBannerTitleEnabled(): boolean {
 	return backgroundWallpaper.banner?.homeText?.enable ?? true;
@@ -763,7 +762,9 @@ export function setSakuraShow(enabled: boolean): void {
 	sakuraConfig.enable = enabled;
 	// 派发自定义事件，通知 SakuraEffect 切换显示状态
 	if (typeof window !== "undefined") {
-		window.dispatchEvent(new CustomEvent("sakuraToggle", { detail: { enabled } }));
+		window.dispatchEvent(
+			new CustomEvent("sakuraToggle", { detail: { enabled } }),
+		);
 	}
 }
 

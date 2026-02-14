@@ -1,187 +1,202 @@
 <script lang="ts">
-  import { WALLPAPER_BANNER, WALLPAPER_NONE, WALLPAPER_OVERLAY } from '@constants/constants'
-  import I18nKey from '@i18n/i18nKey'
-  import { i18n } from '@i18n/translation'
-  import {
-    getDefaultBannerTitleEnabled,
-    getDefaultHue,
-    getDefaultSakuraShow,
-    getDefaultWavesEnabled,
-    getHue,
-    getStoredBannerTitleEnabled,
-    getStoredSakuraShow,
-    getStoredWallpaperMode,
-    getStoredWavesEnabled,
-    setBannerTitleEnabled,
-    setHue,
-    setSakuraShow,
-    setWallpaperMode,
-    setWavesEnabled,
-  } from '@utils/setting-utils'
-  import { onMount } from 'svelte'
-  import Icon from '@/components/common/Icon.svelte'
-  import { backgroundWallpaper, sakuraConfig, siteConfig } from '@/config'
-  import type { WALLPAPER_MODE } from '@/types/config'
+import {
+	WALLPAPER_BANNER,
+	WALLPAPER_NONE,
+	WALLPAPER_OVERLAY,
+} from "@constants/constants";
+import I18nKey from "@i18n/i18nKey";
+import { i18n } from "@i18n/translation";
+import {
+	getDefaultBannerTitleEnabled,
+	getDefaultHue,
+	getDefaultSakuraShow,
+	getDefaultWavesEnabled,
+	getHue,
+	getStoredBannerTitleEnabled,
+	getStoredSakuraShow,
+	getStoredWallpaperMode,
+	getStoredWavesEnabled,
+	setBannerTitleEnabled,
+	setHue,
+	setSakuraShow,
+	setWallpaperMode,
+	setWavesEnabled,
+} from "@utils/setting-utils";
+import { onMount } from "svelte";
+import Icon from "@/components/common/Icon.svelte";
+import { backgroundWallpaper, sakuraConfig, siteConfig } from "@/config";
+import type { WALLPAPER_MODE } from "@/types/config";
 
-  let hue = $state(getHue())
-  const defaultHue = getDefaultHue()
-  let wallpaperMode: WALLPAPER_MODE = $state(backgroundWallpaper.mode)
-  const defaultWallpaperMode = backgroundWallpaper.mode
-  let currentLayout: 'list' | 'grid' = $state('list')
-  const defaultLayout = siteConfig.postListLayout.defaultMode
-  let mounted = $state(false)
-  let isSmallScreen = $state(typeof window !== 'undefined' ? window.innerWidth < 1200 : false)
-  let isSwitching = $state(false)
-  let wavesEnabled = $state(true)
-  const defaultWavesEnabled = getDefaultWavesEnabled()
-  let bannerTitleEnabled = $state(true)
-  const defaultBannerTitleEnabled = getDefaultBannerTitleEnabled()
-  let sakuraShowEnabled = $state(getDefaultSakuraShow())
-  const defaultSakuraShowEnabled = getDefaultSakuraShow()
-  const isWallpaperSwitchable = backgroundWallpaper.switchable ?? true
-  const allowLayoutSwitch = siteConfig.postListLayout.allowSwitch
-  const showThemeColor = !siteConfig.themeColor.fixed
-  // 是否允许用户切换水波纹动画（只看 switchable 配置）
-  const isWavesSwitchable = backgroundWallpaper.banner?.waves?.switchable ?? false
-  // 检查是否启用横幅标题配置
-  const isBannerTitleEnabled = backgroundWallpaper.banner?.homeText?.enable ?? false
-  // 是否允许用户切换横幅标题
-  const isBannerTitleSwitchable = isBannerTitleEnabled && (backgroundWallpaper.banner?.homeText?.switchable ?? false)
-  // 樱花特效设置
-  const isSakuraSwitchable = sakuraConfig.enable ?? false //这个是系统层面控制是否要启用
+let hue = $state(getHue());
+const defaultHue = getDefaultHue();
+let wallpaperMode: WALLPAPER_MODE = $state(backgroundWallpaper.mode);
+const defaultWallpaperMode = backgroundWallpaper.mode;
+let currentLayout: "list" | "grid" = $state("list");
+const defaultLayout = siteConfig.postListLayout.defaultMode;
+let mounted = $state(false);
+let isSmallScreen = $state(
+	typeof window !== "undefined" ? window.innerWidth < 1200 : false,
+);
+let isSwitching = $state(false);
+let wavesEnabled = $state(true);
+const defaultWavesEnabled = getDefaultWavesEnabled();
+let bannerTitleEnabled = $state(true);
+const defaultBannerTitleEnabled = getDefaultBannerTitleEnabled();
+let sakuraShowEnabled = $state(getDefaultSakuraShow());
+const defaultSakuraShowEnabled = getDefaultSakuraShow();
+const isWallpaperSwitchable = backgroundWallpaper.switchable ?? true;
+const allowLayoutSwitch = siteConfig.postListLayout.allowSwitch;
+const showThemeColor = !siteConfig.themeColor.fixed;
+// 是否允许用户切换水波纹动画（只看 switchable 配置）
+const isWavesSwitchable =
+	backgroundWallpaper.banner?.waves?.switchable ?? false;
+// 检查是否启用横幅标题配置
+const isBannerTitleEnabled =
+	backgroundWallpaper.banner?.homeText?.enable ?? false;
+// 是否允许用户切换横幅标题
+const isBannerTitleSwitchable =
+	isBannerTitleEnabled &&
+	(backgroundWallpaper.banner?.homeText?.switchable ?? false);
+// 樱花特效设置
+const isSakuraSwitchable = sakuraConfig.enable ?? false; //这个是系统层面控制是否要启用
 
-  // 是否有任何横幅设置可显示（后续添加新设置时在此处添加条件）
-  const hasBannerSettings = isWavesSwitchable || isBannerTitleSwitchable
-  // 是否有特效设置可显示（樱花等）
-  const hasEffectSettings = isSakuraSwitchable
-  const hasAnyContent = showThemeColor || isWallpaperSwitchable || allowLayoutSwitch || hasBannerSettings || hasEffectSettings
+// 是否有任何横幅设置可显示（后续添加新设置时在此处添加条件）
+const hasBannerSettings = isWavesSwitchable || isBannerTitleSwitchable;
+// 是否有特效设置可显示（樱花等）
+const hasEffectSettings = isSakuraSwitchable;
+const hasAnyContent =
+	showThemeColor ||
+	isWallpaperSwitchable ||
+	allowLayoutSwitch ||
+	hasBannerSettings ||
+	hasEffectSettings;
 
-  function resetHue() {
-    hue = getDefaultHue()
-  }
+function resetHue() {
+	hue = getDefaultHue();
+}
 
-  function resetWallpaperMode() {
-    wallpaperMode = defaultWallpaperMode
-    setWallpaperMode(defaultWallpaperMode)
-  }
+function resetWallpaperMode() {
+	wallpaperMode = defaultWallpaperMode;
+	setWallpaperMode(defaultWallpaperMode);
+}
 
-  function resetLayout() {
-    currentLayout = defaultLayout
-    localStorage.setItem('postListLayout', defaultLayout)
+function resetLayout() {
+	currentLayout = defaultLayout;
+	localStorage.setItem("postListLayout", defaultLayout);
 
-    // 触发自定义事件，通知页面布局已改变
-    const event = new CustomEvent('layoutChange', {
-      detail: { layout: defaultLayout },
-    })
-    window.dispatchEvent(event)
-  }
+	// 触发自定义事件，通知页面布局已改变
+	const event = new CustomEvent("layoutChange", {
+		detail: { layout: defaultLayout },
+	});
+	window.dispatchEvent(event);
+}
 
-  function resetWavesEnabled() {
-    wavesEnabled = defaultWavesEnabled
-    setWavesEnabled(defaultWavesEnabled)
-  }
+function resetWavesEnabled() {
+	wavesEnabled = defaultWavesEnabled;
+	setWavesEnabled(defaultWavesEnabled);
+}
 
-  function toggleWavesEnabled() {
-    wavesEnabled = !wavesEnabled
-    setWavesEnabled(wavesEnabled)
-  }
+function toggleWavesEnabled() {
+	wavesEnabled = !wavesEnabled;
+	setWavesEnabled(wavesEnabled);
+}
 
-  function toggleBannerTitleEnabled() {
-    bannerTitleEnabled = !bannerTitleEnabled
-    setBannerTitleEnabled(bannerTitleEnabled)
-  }
+function toggleBannerTitleEnabled() {
+	bannerTitleEnabled = !bannerTitleEnabled;
+	setBannerTitleEnabled(bannerTitleEnabled);
+}
 
-  function toggleSakuraShow() {
-    sakuraShowEnabled = !sakuraShowEnabled
-    setSakuraShow(sakuraShowEnabled)
-  }
+function toggleSakuraShow() {
+	sakuraShowEnabled = !sakuraShowEnabled;
+	setSakuraShow(sakuraShowEnabled);
+}
 
-  function resetSakuraShow() {
-    sakuraShowEnabled = defaultSakuraShowEnabled
-    setSakuraShow(sakuraShowEnabled)
-  }
-  function switchWallpaperMode(newMode: WALLPAPER_MODE) {
-    wallpaperMode = newMode
-    setWallpaperMode(newMode)
-  }
+function resetSakuraShow() {
+	sakuraShowEnabled = defaultSakuraShowEnabled;
+	setSakuraShow(sakuraShowEnabled);
+}
+function switchWallpaperMode(newMode: WALLPAPER_MODE) {
+	wallpaperMode = newMode;
+	setWallpaperMode(newMode);
+}
 
-  function checkScreenSize() {
-    isSmallScreen = window.innerWidth < 1200
-    if (isSmallScreen) {
-      currentLayout = 'list'
-    }
-  }
+function checkScreenSize() {
+	isSmallScreen = window.innerWidth < 1200;
+	if (isSmallScreen) {
+		currentLayout = "list";
+	}
+}
 
-  function switchLayout() {
-    if (!mounted || isSmallScreen || isSwitching) return
+function switchLayout() {
+	if (!mounted || isSmallScreen || isSwitching) return;
 
-    isSwitching = true
-    currentLayout = currentLayout === 'list' ? 'grid' : 'list'
-    localStorage.setItem('postListLayout', currentLayout)
+	isSwitching = true;
+	currentLayout = currentLayout === "list" ? "grid" : "list";
+	localStorage.setItem("postListLayout", currentLayout);
 
-    // 触发自定义事件，通知页面布局已改变
-    const event = new CustomEvent('layoutChange', {
-      detail: { layout: currentLayout },
-    })
-    window.dispatchEvent(event)
+	// 触发自定义事件，通知页面布局已改变
+	const event = new CustomEvent("layoutChange", {
+		detail: { layout: currentLayout },
+	});
+	window.dispatchEvent(event);
 
-    // 动画完成后重置状态
-    setTimeout(() => {
-      isSwitching = false
-    }, 500)
-  }
+	// 动画完成后重置状态
+	setTimeout(() => {
+		isSwitching = false;
+	}, 500);
+}
 
-  onMount(() => {
-    mounted = true
-    checkScreenSize()
+onMount(() => {
+	mounted = true;
+	checkScreenSize();
 
-    // 从localStorage读取保存的壁纸模式
-    wallpaperMode = getStoredWallpaperMode()
+	// 从localStorage读取保存的壁纸模式
+	wallpaperMode = getStoredWallpaperMode();
 
-    // 从localStorage读取水波纹动画状态
-    wavesEnabled = getStoredWavesEnabled()
+	// 从localStorage读取水波纹动画状态
+	wavesEnabled = getStoredWavesEnabled();
 
-    // 从localStorage读取横幅标题状态
-    bannerTitleEnabled = getStoredBannerTitleEnabled()
+	// 从localStorage读取横幅标题状态
+	bannerTitleEnabled = getStoredBannerTitleEnabled();
 
-    // 从localStorage读取樱花特效状态
-    sakuraShowEnabled = getStoredSakuraShow()
+	// 从localStorage读取樱花特效状态
+	sakuraShowEnabled = getStoredSakuraShow();
 
-    // 从localStorage读取用户偏好布局
-    const savedLayout = localStorage.getItem('postListLayout')
-    if (savedLayout && (savedLayout === 'list' || savedLayout === 'grid')) {
-      currentLayout = savedLayout
-    } else {
-      currentLayout = siteConfig.postListLayout.defaultMode
-    }
+	// 从localStorage读取用户偏好布局
+	const savedLayout = localStorage.getItem("postListLayout");
+	if (savedLayout && (savedLayout === "list" || savedLayout === "grid")) {
+		currentLayout = savedLayout;
+	} else {
+		currentLayout = siteConfig.postListLayout.defaultMode;
+	}
 
-    // 监听窗口大小变化
-    window.addEventListener('resize', checkScreenSize)
+	// 监听窗口大小变化
+	window.addEventListener("resize", checkScreenSize);
 
-    return () => {
-      window.removeEventListener('resize', checkScreenSize)
-    }
-  })
+	return () => {
+		window.removeEventListener("resize", checkScreenSize);
+	};
+});
 
-  // 监听布局变化事件
-  onMount(() => {
-    const handleCustomEvent = (event: Event) => {
-      const customEvent = event as CustomEvent<{ layout: 'list' | 'grid' }>
-      currentLayout = customEvent.detail.layout
-    }
+// 监听布局变化事件
+onMount(() => {
+	const handleCustomEvent = (event: Event) => {
+		const customEvent = event as CustomEvent<{ layout: "list" | "grid" }>;
+		currentLayout = customEvent.detail.layout;
+	};
 
-    window.addEventListener('layoutChange', handleCustomEvent)
+	window.addEventListener("layoutChange", handleCustomEvent);
 
-    return () => {
-      window.removeEventListener('layoutChange', handleCustomEvent)
-    }
-  })
+	return () => {
+		window.removeEventListener("layoutChange", handleCustomEvent);
+	};
+});
 
-  $effect(() => {
-    if (hue || hue === 0) {
-      setHue(hue)
-    }
-  })
+$effect(() => {
+	if (hue || hue === 0) {
+		setHue(hue);
+	}
+});
 </script>
 
 {#if hasAnyContent}
