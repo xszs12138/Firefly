@@ -24,13 +24,11 @@ jobs:
       - run: pnpm build
 
       - name: Deploy via SCP
-        if: github.event_name == 'push'
         uses: appleboy/scp-action@v1
         with:
-          host: blog.tjausbj.com.cn
+          host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USER }}
-          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          key: ${{ secrets.SSH_KEY }}
           source: "dist"
           target: "/var/www/blog-website"
           strip_components: 1
-          rm: true
