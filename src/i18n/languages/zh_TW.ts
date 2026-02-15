@@ -279,6 +279,11 @@ export const zh_TW: Translation = {
 	[Key.savePoster]: "保存海報",
 	[Key.scanToRead]: "掃碼閱讀文章",
 
+	// 更新檢測
+	[Key.updateAvailable]: "發現新版本",
+	[Key.updateAvailableDesc]: "網站已更新，點擊刷新以獲取最新內容",
+	[Key.updateRefresh]: "立即刷新",
+
 	// 代碼區塊折疊配置
 	[Key.codeCollapsibleShowMore]: "顯示更多",
 	[Key.codeCollapsibleShowLess]: "顯示更少",

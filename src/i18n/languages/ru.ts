@@ -288,6 +288,12 @@ export const ru: Translation = {
 	[Key.savePoster]: "Сохранить постер",
 	[Key.scanToRead]: "Сканируйте, чтобы прочитать",
 
+	// Проверка обновлений
+	[Key.updateAvailable]: "Доступно обновление",
+	[Key.updateAvailableDesc]:
+		"Сайт обновлен. Нажмите, чтобы обновить и получить последний контент.",
+	[Key.updateRefresh]: "Обновить сейчас",
+
 	// Конфигурация блоков коллапсируемого кода
 	[Key.codeCollapsibleShowMore]: "Показать больше",
 	[Key.codeCollapsibleShowLess]: "Показать меньше",

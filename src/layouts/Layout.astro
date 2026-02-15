@@ -5,6 +5,7 @@ import FancyboxManager from "@components/features/FancyboxManager.astro";
 import FontManager from "@components/features/FontManager.astro";
 import SakuraEffect from "@components/features/SakuraEffect.astro";
 import ConfigCarrier from "@components/layout/ConfigCarrier.astro";
+import UpdateCheck from "@components/widget/UpdateCheck.svelte";
 
 import {
 	backgroundWallpaper,
@@ -443,6 +444,15 @@ const bannerOffset = `${BANNER_HEIGHT_EXTEND / 2}vh`;
 
     <!-- Fancybox Manager -->
     <FancyboxManager />
+
+    <!-- Update Check -->
+    {siteConfig.updateCheck?.enable && (
+      <UpdateCheck
+        client:load
+        checkUpdatesInterval={siteConfig.updateCheck?.interval ?? 1}
+        checkUpdateUrl={import.meta.env.BASE_URL || '/'}
+      />
+    )}
   </body>
 </html>
 

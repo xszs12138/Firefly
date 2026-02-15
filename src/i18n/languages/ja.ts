@@ -286,6 +286,12 @@ export const ja: Translation = {
 	[Key.savePoster]: "ポスターを保存",
 	[Key.scanToRead]: "QRコードで読む",
 
+	// 更新チェック
+	[Key.updateAvailable]: "新しいバージョンがあります",
+	[Key.updateAvailableDesc]:
+		"サイトが更新されました。クリックして最新のコンテンツを取得してください",
+	[Key.updateRefresh]: "今すぐ更新",
+
 	// コードブロック折りたたみ設定
 	[Key.codeCollapsibleShowMore]: "もっと表示",
 	[Key.codeCollapsibleShowLess]: "少なく表示",

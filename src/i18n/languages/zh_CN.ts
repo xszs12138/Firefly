@@ -278,6 +278,11 @@ export const zh_CN: Translation = {
 	[Key.savePoster]: "保存海报",
 	[Key.scanToRead]: "扫码阅读文章",
 
+	// 更新检测
+	[Key.updateAvailable]: "发现新版本",
+	[Key.updateAvailableDesc]: "网站已更新，点击刷新以获取最新内容",
+	[Key.updateRefresh]: "立即刷新",
+
 	// 代码块折叠配置
 	[Key.codeCollapsibleShowMore]: "显示更多",
 	[Key.codeCollapsibleShowLess]: "显示更少",

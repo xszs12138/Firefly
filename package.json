@@ -4,6 +4,7 @@
 	"version": "6.6.3",
 	"scripts": {
 		"dev": "astro dev",
+		"dev:host": "astro dev --host",
 		"start": "astro dev",
 		"check": "astro check",
 		"build": "node scripts/generate-icons.js && astro build && pagefind --site dist",

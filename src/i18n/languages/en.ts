@@ -287,6 +287,12 @@ export const en: Translation = {
 	[Key.savePoster]: "Save Poster",
 	[Key.scanToRead]: "Scan to Read",
 
+	// Update Check
+	[Key.updateAvailable]: "Update Available",
+	[Key.updateAvailableDesc]:
+		"The site has been updated. Click to refresh for the latest content.",
+	[Key.updateRefresh]: "Refresh Now",
+
 	// Code Block Collapsible Configuration
 	[Key.codeCollapsibleShowMore]: "Show more",
 	[Key.codeCollapsibleShowLess]: "Show less",

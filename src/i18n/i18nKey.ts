@@ -276,6 +276,11 @@ enum I18nKey {
 	savePoster = "savePoster",
 	scanToRead = "scanToRead",
 
+	// 更新检测
+	updateAvailable = "updateAvailable",
+	updateAvailableDesc = "updateAvailableDesc",
+	updateRefresh = "updateRefresh",
+
 	// 代码块折叠配置
 	codeCollapsibleShowMore = "codeCollapsibleShowMore",
 	codeCollapsibleShowLess = "codeCollapsibleShowLess",

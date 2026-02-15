@@ -95,6 +95,12 @@ export type SiteConfig = {
 		postsPerPage: number; // 每页显示的文章数量
 	};
 
+	// 更新检测配置
+	updateCheck?: {
+		enable: boolean;
+		interval?: number; // 检查间隔（分钟），默认 1
+	};
+
 	// 统计分析
 	analytics?: {
 		googleAnalyticsId?: string; // Google Analytics ID

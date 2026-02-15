@@ -144,6 +144,12 @@ export const siteConfig: SiteConfig = {
 		postsPerPage: 10,
 	},
 
+	// 更新检测：检测到新版本时提示用户刷新
+	updateCheck: {
+		enable: true,
+		interval: 1, // 检查间隔（分钟）
+	},
+
 	// 统计分析
 	analytics: {
 		// Google Analytics ID
