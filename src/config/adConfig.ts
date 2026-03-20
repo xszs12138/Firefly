@@ -41,17 +41,16 @@ export const adConfig1: AdConfig = {
 
 // 广告配置2 - 完整内容广告
 export const adConfig2: AdConfig = {
-	title: "个人作品集",
-	content: "我的一些零零散散的作品集",
+	title: "前端工具库",
+	content: "我写的前端作品集",
 	image: {
 		src: "https://bu.dusays.com/2026/03/18/69ba5a2d8dc27.png",
 		alt: "个人作品集",
-		external: false,
 	},
 	link: {
 		text: "去看看",
 		url: "https://work.tjausbj.com.cn",
-		external: false,
+		external: true,
 	},
 	closable: false,
 	displayCount: -1,
