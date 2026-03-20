@@ -41,21 +41,19 @@ export const adConfig1: AdConfig = {
 
 // 广告配置2 - 完整内容广告
 export const adConfig2: AdConfig = {
-	title: "支持博主",
-	content:
-		"如果您觉得本站内容对您有帮助，欢迎支持我们的创作！您的支持是我们持续更新的动力。",
+	title: "个人作品集",
+	content: "我的一些零零散散的作品集",
 	image: {
-		src: "assets/images/cover.jpg",
-		alt: "支持博主",
-		link: "about/",
+		src: "https://bu.dusays.com/2026/03/18/69ba5a2d8dc27.png",
+		alt: "个人作品集",
 		external: false,
 	},
 	link: {
-		text: "支持一下",
-		url: "about/",
+		text: "去看看",
+		url: "https://work.tjausbj.com.cn",
 		external: false,
 	},
-	closable: true,
+	closable: false,
 	displayCount: -1,
 	padding: {
 		// all: "1rem",

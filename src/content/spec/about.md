@@ -1,37 +1,62 @@
-# 关于我 / About Me
+# 关于 
 
-你好！我是 **夏叶** ，一个在数字世界中默默无闻的一片叶子。
+你好！我是 **xszs** ，一个只喜欢编程，游戏的普通人。
+
+
+## 人生经历
+TODO
+
+
+## 至今掌握的技能
+
+其实我自认为我是个小白，我自从毕业以来满打满算干了两年的前端。掌握的知识缺很杂包括但不限于以下
+1. 前端 react,vue(2,3),vite,nuxt,css,typescript, wujie(微服务)
+2. 后端 go,nodejs,mysql
+3. 服务器 部署过各种项目，熟悉基本的服务器指令，能够排查一些项目启动的问题，会nginx，docker，PM2
+
+曾经觉得自己还算不错，直到看到有很多github的开源大神比如 [anfu(vueuse,viteset作者)](https://github.com/antfu),
+[sxzz(ElementPlus主要贡献者,tsdown作者)](https://github.com/sxzz)
+
+很可惜，没能早点接触到编程，也许荒废了四年的大学时光，算是我目前为止最后悔的事情。 
+
+## 闲聊时间
+
+说完技能，我觉的我想说一下我对编程的看法。当我还是一名软件大学生，在大三的时候偶然看到了一个前端的视频，就觉得效果特别酷，所以
+我开始想这是使用什么做出来的。这么着入坑的前端。可以说我是一个兴趣驱动的人。和我高中严重偏科一样。如果一个东西我没有兴趣。
+那么我是不会有任何主动接触的行为。
+
+是的，直到实习之前一直是这样的想法，干了两年的时间，忽然发现其实技术是服务于人的，可能你的前端页面不是很 `花哨`，但是却又很多
+人再用。有些你学到的东西，可能开发根本用不到。所以我觉得由需求或者说项目驱动学习特别有效。与其看了一堆文档但是目前暂时用不到，
+可能隔了一段时间就会忘记。对我来说是这样。
+
+嗯，说一下我对算法的考量。的确算法很考验一个软件工程师的逻辑或者说是算数思维。但是很多前端的大神可能并没有很牛逼的算法能力。很多的
+前端的工具库没有体现很多的算法，更多的是工程化方面。所以我觉得 工程化思维(能力) > 算法能力，至少前端我是这么认为。
+
+如果你现在的公司正使用JavaScript，强烈建议你学习TypeScript。这对于编写复杂项目以及工具库非常重要。
+
+之后计划的事项如下
+- [ ] 学习vue3的源码
+- [x] 可能学习一下go语言
+- [ ] 深入理解一下前端工程化知识
+- [ ] 可能会开发一个资源库 (我会放一些 `游戏` 和 `学习` 资源等等)
 
 ## 🛠️ 关于本站
 
-这个网站使用 **Astro** 框架构建，采用了 [Firefly](https://github.com/CuteLeaf/Firefly) 模板，Firefly 是基于 [Fuwari](https://github.com/saicaca/fuwari) 的二次开发。
+这个网站使用 **Astro** 框架构建，使用了 [Firefly](https://github.com/CuteLeaf/Firefly) 模板，稍微魔改了一点点代码
+下面是模板的github地址，希望大家能给模板原作者点点star 🙏 
 
-**Firefly** 是一款基于 Astro 框架和 Fuwari 模板开发的清新美观且现代化个人博客主题模板，专为技术爱好者和内容创作者设计。该主题融合了现代 Web 技术栈，提供了丰富的功能模块和高度可定制的界面，让您能够轻松打造出专业且美观的个人博客网站。
-
-
-**🖥️在线预览： [Firefly - Demo site](https://firefly.cuteleaf.cn/)**
-
-**🏠我的博客： [https://blog.cuteleaf.cn](https://blog.cuteleaf.cn/)**
-
-**📝Firefly使用文档： [https://docs-firefly.cuteleaf.cn](https://docs-firefly.cuteleaf.cn/)**
-
-**⭐Firefly开源地址：[https://github.com/CuteLeaf/Firefly](https://github.com/CuteLeaf/Firefly)** 
-
-**⭐Fuwari开源地址：[https://github.com/saicaca/fuwari](https://github.com/saicaca/fuwari)**
-
+## Firefly模板地址
 ::github{repo="CuteLeaf/Firefly"}
-
-::github{repo="saicaca/fuwari"}
 
 
 ## 📫 联系方式
 
-如果你想和我交流技术问题，分享有趣的想法，或者只是想打个招呼，欢迎通过以下方式联系我：
+如果你想和我交流技术问题，或者您对我的作品有任何疑问或建议欢迎您通过一下方式联系我：
 
-- 💻 **GitHub**: [CuteLeaf](https://github.com/CuteLeaf)
-- ✉️ **Email**: [xiaye@msn.com](mailto:xiaye@msn.com)
+- 💻 **GitHub**: [xszs](https://github.com/xszs)
+- ✉️ **Email**: [xszs0249@gmail.com](xszs0249@gmail.com)
 
----
 
-*感谢你的来访！希望在这里能找到对你有用的内容！*
+
+
 

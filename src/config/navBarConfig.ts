@@ -28,21 +28,27 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
 		children: [
 			{
 				name: "GitHub",
-				url: "https://github.com/CuteLeaf/Firefly",
+				url: "https://github.com/xszs",
 				external: true,
 				icon: "fa7-brands:github",
 			},
 			{
 				name: "Bilibili",
-				url: "https://space.bilibili.com/38932988",
+				url: "https://space.bilibili.com/1002587670",
 				external: true,
 				icon: "fa7-brands:bilibili",
+			},
+			{
+				name: "我的作品集",
+				url: "https://work.tjausbj.com.cn",
+				external: true,
+				icon: "fa7-brands:vuejs",
 			},
 		],
 	});
 
 	// 友链
-	links.push(LinkPreset.Friends);
+	// links.push(LinkPreset.Friends);
 
 	// 根据配置决定是否添加留言板，在siteConfig关闭pages.guestbook时导航栏不显示留言板
 	if (siteConfig.pages.guestbook) {

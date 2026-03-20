@@ -5,7 +5,7 @@ export const fontConfig = {
 	// 是否预加载字体文件
 	preload: true,
 	// 当前选择的字体，支持多个字体组合
-	selected: ["system"],
+	selected: ["inter"],
 
 	// 字体列表
 	fonts: {
@@ -17,7 +17,6 @@ export const fontConfig = {
 			family:
 				"system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif",
 		},
-
 		// Google Fonts - Zen Maru Gothic
 		"zen-maru-gothic": {
 			id: "zen-maru-gothic",
